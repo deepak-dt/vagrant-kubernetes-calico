@@ -29,8 +29,8 @@ data:
         "log_level": "info",
         "mtu": 1500,
         "ipam": {
-			"assign_ipv4": "true",
-			"assign_ipv6": "true",
+            "assign_ipv4": "true",
+            "assign_ipv6": "true",
             "type": "calico-ipam"
         },
         "policy": {
@@ -156,7 +156,8 @@ spec:
         # container programs network policy and routes on each
         # host.
         - name: calico-node
-          image: quay.io/calico/node:master
+          #image: quay.io/calico/node:master
+          image: quay.io/calico/node:v2.5.0
           env:
             # The location of the Calico etcd cluster.
             - name: ETCD_ENDPOINTS
@@ -225,7 +226,8 @@ spec:
         # This container installs the Calico CNI binaries
         # and CNI network config file on each node.
         - name: install-cni
-          image: quay.io/calico/cni:latest
+          #image: quay.io/calico/cni:latest
+          image: quay.io/calico/cni:v1.10.0
           command: ["/install-cni.sh"]
           env:
             # The location of the Calico etcd cluster.

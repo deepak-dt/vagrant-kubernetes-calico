@@ -45,10 +45,12 @@ calico-9:	kubeadm join --token 2dd4bb.2e5f64154f1aea00 192.168.100.9:6443
 
 calico-18:	kubeadm join --token 3d5c26.274e5a164d552561 192.168.100.18:6443
 
+vagrant:	kubeadm join --token 0df27f.3b4b4cb145b44ffd 203.0.113.9:6443
+
 
 Kubernets commands
 ---------------------------------------
-sudo ip addr add fd80:24e2:f998:72d7::1/112 dev enp2s0
+sudo ip addr add fd80:24e2:f998:72d7::1/112 dev enp0s8
 
 kubeadm init --apiserver-advertise-address=192.168.100.9 --service-cidr=10.96.0.0/24
 
@@ -61,7 +63,7 @@ export KUBECONFIG=$HOME/admin.conf
 kubectl taint nodes --all node-role.kubernetes.io/master-
 kubectl get nodes
 sudo kubeadm version
-kubectl get pods --all-namespaces=true
+kubectl get pods --all-namespaces=true -o wide
 
 kubectl apply -f https://docs.projectcalico.org/master/getting-started/kubernetes/installation/hosted/calicoctl.yaml
 kubectl exec -it calicoctl sh --namespace=kube-system

@@ -11,6 +11,9 @@ sudo apt-get update -y
 
 export WORKSPACE=$PWD
 export HOST_IP=203.0.113.9
+export HOST_IPv6=fd80:24e2:f998:72d7::1
+export IPv6_CIDR=fd80:24e2:f998:72d6::/64
+
 export SERVICE_CIDR=10.96.0.0/24
 export CLUSTER_IP=10.96.0.9
 
@@ -52,12 +55,27 @@ export ETCD_ENDPOINTS=http://$CLUSTER_IP:6666
 # Install Kubernetes and related packages
 #######################################################################################
 #kubeadm init --apiserver-advertise-address=$HOST_IP --service-cidr=$SERVICE_CIDR
+#sudo cp /etc/kubernetes/admin.conf $HOME/
+#sudo chown $(id -u):$(id -g) $HOME/admin.conf
+#export KUBECONFIG=$HOME/admin.conf
 #kubectl taint nodes --all node-role.kubernetes.io/master-
 
 #######################################################################################
 # Fetch and apply calico.yaml
 #######################################################################################
 #kubectl apply -f calico.yaml
+
+
+#######################################################################################
+# Add IPv6 pool
+#######################################################################################
+cat > ipv6_pool.yaml <<EOT
+- apiVersion: v1
+  kind: ipPool
+  metadata:
+    cidr: $IPv6_CIDR
+EOT
+#calicoctl create -f ipv6_pool.yaml
 
 
 #######################################################################################
