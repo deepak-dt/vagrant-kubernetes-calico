@@ -1,0 +1,6 @@
+---
+box: "boxcutter/ubuntu1604-desktop"
+kube_calico_vm:
+  host_name: kube_calico_vm
+  memory: 6144
+  cpus: 2
